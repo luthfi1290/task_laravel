@@ -72,7 +72,7 @@
                         $input->defend($defend);
                     }
                     system('clear');
-                    $input->cek();
+                    $input->cek();                    
                     if(count(player::$allplayer) == 1){
                         $display->winner();
                     }else{

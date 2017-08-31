@@ -12,7 +12,7 @@
                             {!! Form::label('title','Title',['class'=>'col-md-4 control-label']) !!}
                             <div class="col-md-6">
                                 {!! Form::text('title',null,['class' => 'form-control']) !!}
-                                {!! $errors->first('title','<p class="help-block">:message</p>') !!}
+                                {!! $errors->first('title','<p class="alert alert-danger">:message</p>') !!}
                             </div>
                         </div>
 
@@ -20,7 +20,7 @@
                             {!! Form::label('path','Upload',['class'=>'col-md-4 control-label']) !!}
                             <div class="col-md-6">
                                 {!! Form::file('path') !!}
-                                {!! $errors->first('path','<p class="help-block">:message</p>') !!}
+                                {!! $errors->first('path','<p class="alert alert-danger">:message</p>') !!}
                             </div>
                         </div>
                         <div class="col-md-offset-5">

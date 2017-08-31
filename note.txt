@@ -1,0 +1,6 @@
+1. .env
+    cara membuat key : php artisan key::generate
+2. redist : database no sql
+3. artisan
+4. composer.json
+5. 

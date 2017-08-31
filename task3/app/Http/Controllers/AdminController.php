@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\UploadRequest;
-use App\Image;
+use App\Http\Requests\CreateRequest;
 use App\User;
+use App\Image;
+use App\Role;
 use Auth;
-use Session;
 
-class ImageController extends Controller
+
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,16 +19,18 @@ class ImageController extends Controller
      */
     public function index()
     {
-        //halaman upload member
-        return view('member.upload');
+        //
+        //whereNotIn('id',[Auth::user()->id])->get()
+        $users = User::whereNotIn('id',[Auth::user()->id])->paginate('5');
+        return view('admin.user',compact('users')); 
     }
 
     public function imagelist()
     {
-        //halaman imagelist
-        $images = Image::where('user_id',Auth::user()->id)->get();
-        return view('member.list',compact('images'));
+        $users = User::with('images')->whereNotIn('id',[Auth::user()->id])->get();
+        return view('admin.listimage',compact('users'));
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -35,7 +38,7 @@ class ImageController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.create');
     }
 
     /**
@@ -44,28 +47,17 @@ class ImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UploadRequest $request)
+    public function store(CreateRequest $request)
     {
-        //ambil data
-        $file = $request->file('path');
-        $dt = 'upload_images/';
-        $nama = $file->getClientOriginalName();
-        $hasil = $file->move($dt,time()."_".$file->getClientOriginalName());
-        
-        //simpan ke database images
-        $images = new Image();
-        $images->title = $request->title;
-        $images->path = $hasil;
-        $images->user_id = Auth::user()->id;
-        // dd($images->user_id);
-        $images->save();
-
-        Session::flash("flash_notification", [
-            "level"=>"success",
-            "message"=>"Berhasil menyimpan $nama"
-        ]);
-
-        return redirect()->route('image.imagelist');
+        //menyimpan data add user
+        $users = new User();
+        $users->name = $request->name;
+        $users->email = $request->email;
+        $users->password = bcrypt($request->password);
+        $users->save();
+        $memberRole = Role::where('name', 'member')->first();
+        $users->attachRole($memberRole);
+        return redirect()->route('admin.index');
     }
 
     /**
@@ -88,8 +80,8 @@ class ImageController extends Controller
     public function edit($id)
     {
         //
-        $images = Image::findOrFail($id);
-        return view('member.edit',compact('images'));
+        $users = User::findOrFail($id);
+        return view('admin.edit',compact('users'));
     }
 
     /**
@@ -101,12 +93,12 @@ class ImageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $images = Image::findOrFail($id);
-        $images->title = $request->title;
-        $images->save();
-
-        return redirect()->route('image.imagelist');
+        $users = User::findOrFail($id);
+        $users->name = $request->name;
+        $users->email = $request->email;
+        // $users->password = Hash::make($request->password);
+        $users->save();
+        return redirect()->route('admin.index');
     }
 
     /**
@@ -118,9 +110,17 @@ class ImageController extends Controller
     public function destroy($id)
     {
         //
+        $users = User::findOrfail($id);
+        $users->delete();
+
+        return redirect()->route('admin.index');
+    }
+
+    public function hapus($id)
+    {
         $images = Image::findOrFail($id);
         unlink(public_path("$images->path"));
         $images->delete();
-        return redirect()->route('image.imagelist');
+        return redirect()->route('admin.imagelist');
     }
 }

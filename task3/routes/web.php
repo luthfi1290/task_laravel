@@ -25,3 +25,10 @@ Route::group(['middleware' => ['web'] ], function () {
         Route::get('/list','ImageController@imagelist')->name('image.imagelist');
     });
 });
+
+Route::group(['middleware' => ['web'] ], function () {
+    Route::group(['prefix' => 'admin','middleware'=> ['auth','role:admin'] ], function () {
+        Route::resource('admin', 'AdminController');
+        Route::get('/list','AdminController@imagelist')->name('admin.imagelist');
+    });
+});

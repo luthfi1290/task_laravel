@@ -26,7 +26,7 @@ class UploadRequest extends FormRequest
         return [
             //validasi upload
             'title' => 'required',
-            'path' => 'required|mimes:jpeg,jpg,png|max:2000'
+            'path' => 'required|mimes:jpeg,jpg,png|max:2000',
         ];
     }
 

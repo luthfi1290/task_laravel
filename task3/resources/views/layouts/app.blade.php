@@ -46,6 +46,10 @@
                     <ul class="nav navbar-nav navbar-tab">
                         @if(Auth::check())
                             <li><a href="{{ url('/home') }}">Dashboard</a></li>
+                            @role('admin')
+                            <li><a href="{{ route('admin.index') }}"> User List</a></li>
+                            <li><a href="{{ route('admin.imagelist') }}"> Image List </a></li>
+                            @endrole
                             @role('member')
                             <li><a href="{{ route('image.index') }}">Upload</a></li>    
                             <li><a href="{{ route('image.imagelist') }}">Image List</a></li> 
