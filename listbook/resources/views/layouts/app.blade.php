@@ -12,9 +12,23 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
+
+    {{-- <link rel="stylesheet" href="{{ asset('css/materialize.min.css') }}" media="screen,projection"> --}}
 </head>
 <body>
     <div id="app">
+      {{-- <nav>
+        <div class="nav-wrapper">
+          <a href="#" class="brand-logo">Logo</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="sass.html">Sass</a></li>
+            <li><a href="badges.html">Components</a></li>
+            <li><a href="collapsible.html">JavaScript</a></li>
+          </ul>
+        </div>
+      </nav> --}}
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -28,7 +42,7 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ url('/home') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
                 </div>
@@ -84,6 +98,9 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.2.1.min.js') }}" charset="utf-8"></script>
+    <script src="{{ asset('js/bootstrap.min.js')}}" charset="utf-8"></script>
+    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
+    {{-- <script src="{{ asset('js/materialize.min.js')}}" charset="utf-8"></script> --}}
 </body>
 </html>

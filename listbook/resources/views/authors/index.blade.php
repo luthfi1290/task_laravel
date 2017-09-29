@@ -9,7 +9,7 @@
             <h4 class="panel-title">List Author</h4>
           </div>
           <div class="panel-body">
-            <a href="{{ route('authors.create') }}" class="btn btn-primary">Add</a>
+            <a href="{{ route('authors.create') }}" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span></i></a>
             <br><br>
             <table class="table table-striped">
               <tr>
@@ -30,8 +30,10 @@
                 @endforeach
                 <td>
                   {{ Form::open(['route' => ['authors.destroy',$author->id] , 'method' => 'DELETE']) }}
-                    <a href="{{ route('authors.edit',$author->id) }}" class="btn btn-info btn-xs"> Edit</a>
-                    {{ Form::submit('Delete',['class' => 'btn btn-danger btn-xs','onclick' => "return confirm('anda yakin?');"]) }}
+                    <a href="{{ route('authors.edit',$author->id) }}" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span></a>
+                    <button type="button" class="btn btn-danger btn-xs" onclick="return confirm('anda yakin?');">
+                      <span class='glyphicon glyphicon-trash'></span>
+                    </button>
                   {{ Form::close() }}
                 </td>
               </tr>
@@ -44,3 +46,4 @@
     </div>
   </div>
 @endsection
+<!-- #d34615 -->

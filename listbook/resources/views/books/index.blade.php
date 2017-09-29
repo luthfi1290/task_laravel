@@ -31,9 +31,10 @@
                       'pending' => 'Pending',
                       'accept' => 'Accept',
                       'reject' => 'Reject'
-                    ],'pending')
+                    ],$book->status)
                     !!}
-                    {{ Form::submit('Edit',['class' => 'btn btn-primary btn-xs'])}}
+                    <button type="submit" name="submit" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-ok-circle"></span></button>
+                    {{-- {{ Form::submit('Edit',['class' => 'btn btn-primary btn-xs'])}} --}}
                   {{ Form::close() }}
                 </td>
               </tr>
